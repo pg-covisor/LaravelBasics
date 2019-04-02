@@ -15,10 +15,37 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-$uri = '/model';
-$callback = function() {
-    return 'called by any';
-};
+
+/* ROUTE PARAMETERS */
+
+// Route::get('user/{id}', function ($id) {
+//     return 'User '.$id;
+// });
+
+// Route::get('posts/{post}/comments/{comment}', function ($postId, $commentId) {
+//     return 'Post Id : '.$postId.' & Comment Id : '.$commentId;
+// });
+
+// Nullable parameter
+// Route::get('user/{name?}', function ($name = null) {
+//     return $name;
+// });
+
+// Setting Default Parameter
+Route::get('user/{name?}', function ($name = 'John') {
+    return $name;
+});
+
+
+
+
+
+/* ROUTE BASICS */
+
+// $uri = '/model';
+// $callback = function() {
+//     return 'called by any';
+// };
 
 // Route::get($uri, $callback);
 // Route::post($uri, $callback);
