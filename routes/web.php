@@ -32,8 +32,30 @@ Route::get('/', function () {
 // });
 
 // Setting Default Parameter
-Route::get('user/{name?}', function ($name = 'John') {
-    return $name;
+// Route::get('user/{name?}', function ($name = 'John') {
+//     return $name;
+// });
+
+
+/* ...Adding Local Condition/Patter to Parameter */
+
+// Route::get('user/{name}', function ($name) {
+//      return $name;
+// })->where('name', '[A-Za-z]+');
+
+// Route::get('user/{id}', function ($id) {
+//     return $id;
+// })->where('id', '[0-9]+');
+
+// Route::get('user/{id}/{name}', function ($id, $name) {
+//     return 'Id : '.$id.'Name : '.$name;
+// })->where(['id' => '[0-9]+', 'name' => '[a-z]+']);
+
+/* ...Adding Global Condition/Patter to Parameter */
+// Patterns are define in the boot method of your RouteServiceProvider:
+Route::get('user/{id}', function ($id) {
+    // Only executed if {id} is numeric...
+     return $id;
 });
 
 

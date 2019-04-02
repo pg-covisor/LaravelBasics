@@ -23,8 +23,8 @@ class RouteServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
-
+        // Global Conditioning on Route Parameters
+        Route::pattern('id', '[0-9]+');
         parent::boot();
     }
 
