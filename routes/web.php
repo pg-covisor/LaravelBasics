@@ -12,14 +12,51 @@ use App\Http\Middleware\CheckAge;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    // return view('welcome');
+    // return response('Hello World')->cookie(
+    // 'name', 'value');
+
+    // Get the current URL without the query string...
+    echo url()->current();
+
+    // Get the current URL including the query string...
+    echo url()->full();
+
+    // Get the full URL for the previous request...
+    echo url()->previous();
+    
+    return [1, 2, 3];
 });
+
+Route::get('home', function () {
+    return response('Hello World', 200)
+                  ->header('Content-Type', 'text/plain');
+});
+
+Route::get('game', function() {
+    return redirect()->away('https://www.google.com');
+});
+
+Route::get('json', function() {
+    return response()->json([
+        'name' => 'Abigail',
+        'state' => 'CA'
+    ]);
+});
+
+
+
+
+
+
+
+
 
 /* MIDDLEWARE  ON ROUTE */
 //127.0.0.1:8000/home/150
-Route::get('/home/{age}', function() {
-    return 'smart';
-})->middleware(CheckAge::class);
+// Route::get('/home/{age}', function() {
+//     return 'smart';
+// })->middleware(CheckAge::class);
 
 /* MULTIPLE MIDDLEWARE ON SINGLE ROUTE*/
 // Route::get('/home/{age}', function() {
