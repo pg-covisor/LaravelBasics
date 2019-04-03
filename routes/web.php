@@ -53,12 +53,75 @@ Route::get('/', function () {
 
 /* ...Adding Global Condition/Patter to Parameter */
 // Patterns are define in the boot method of your RouteServiceProvider:
-Route::get('user/{id}', function ($id) {
-    // Only executed if {id} is numeric...
-     return $id;
+// Route::get('user/{id}', function ($id) {
+//     // Only executed if {id} is numeric...
+//      return $id;
+// });
+
+
+
+
+/* ROUTE GROUPS */
+
+// Middleware
+Route::middleware(['first', 'second'])->group(function () {
+    Route::get('/', function () {
+        // Uses first & second Middleware
+    });
+
+    Route::get('user/profile', function () {
+        // Uses first & second Middleware
+    });
+});
+
+//Namespaces
+Route::namespace('Admin')->group(function () {
+    // Controllers Within The "App\Http\Controllers\Admin" Namespace
+    Route::get('user/profile', function () {
+        return "Namespaces got it";
+    });
+});
+
+// Sub-Domain Routing
+Route::domain('{account}.myapp.com')->group(function () {
+    Route::get('user/{id}', function ($account, $id) {
+        return 'Sub-Domain Routing';
+    });
+});
+
+// Route Prefixes
+Route::prefix('admin')->group(function () {
+    Route::get('users', function () {
+        return 'Route Prefixes';
+    });
+    Route::get('name', function () {
+        return 'Route Prefixes';
+    });
 });
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Route for Default Fallback Error*/
+// If not set its 404 Not Found error by default [via middleware]
+Route::fallback(function () {
+    return 'NOT FOUND';
+});
 
 
 
