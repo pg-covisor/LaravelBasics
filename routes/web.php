@@ -1,5 +1,5 @@
 <?php
-
+use App\Http\Middleware\CheckAge;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -14,6 +14,34 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+/* MIDDLEWARE  ON ROUTE */
+//127.0.0.1:8000/home/150
+Route::get('/home/{age}', function() {
+    return 'smart';
+})->middleware(CheckAge::class);
+
+/* MULTIPLE MIDDLEWARE ON SINGLE ROUTE*/
+// Route::get('/home/{age}', function() {
+//     return 'smart';
+// })->middleware('beforechk', 'checkage', 'afterchk');
+
+/* MIDDLEWARE GROUP */
+// Route::get('/home', function() {
+//     return 'smart';
+// }/*->middleware('web') 
+// the web middleware group is automatically applied to your
+// routes/web.php file by the RouteServiceProvider. */
+// );
+
+/* MIDDLEWARE ON ROUTE GROUP */
+// Route::group(['middleware' => ['beforechk', 'afterchk']], function () {
+//     Route::get('/home', function() {
+//         return 'smart';
+//     });
+// });
+
+
 
 
 /* ROUTE PARAMETERS */
@@ -105,9 +133,9 @@ Route::get('/', function () {
 /* Route Model Binding */
 
  // Implicit Binding : Automatically fetch User instance for given id
-Route::get('api/users/{user}', function (App\User $user) {
-    return $user->email;
-});
+// Route::get('api/users/{user}', function (App\User $user) {
+//     return $user->email;
+// });
 
 // Explicit Binding : define your explicit model bindings in the boot method of the 
 // RouteServiceProvider class:
@@ -116,9 +144,9 @@ Route::get('api/users/{user}', function (App\User $user) {
 //     parent::boot();
 //     Route::model('user', App\User::class);
 // }
-Route::get('profile/{user}', function (App\User $user) {
-    // Same as above use in case of  Complicare cases only
-});
+// Route::get('profile/{user}', function (App\User $user) {
+//     // Same as above use in case of  Complicate cases only
+// });
 
 // Customizing The Key Name
 // If you would like model binding to use a database column other than id when 
