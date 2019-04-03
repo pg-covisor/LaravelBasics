@@ -64,46 +64,76 @@ Route::get('/', function () {
 /* ROUTE GROUPS */
 
 // Middleware
-Route::middleware(['first', 'second'])->group(function () {
-    Route::get('/', function () {
-        // Uses first & second Middleware
-    });
+// Route::middleware(['first', 'second'])->group(function () {
+//     Route::get('/', function () {
+//         // Uses first & second Middleware
+//     });
 
-    Route::get('user/profile', function () {
-        // Uses first & second Middleware
-    });
-});
+//     Route::get('user/profile', function () {
+//         // Uses first & second Middleware
+//     });
+// });
 
 //Namespaces
-Route::namespace('Admin')->group(function () {
-    // Controllers Within The "App\Http\Controllers\Admin" Namespace
-    Route::get('user/profile', function () {
-        return "Namespaces got it";
-    });
-});
+// Route::namespace('Admin')->group(function () {
+//     // Controllers Within The "App\Http\Controllers\Admin" Namespace
+//     Route::get('user/profile', function () {
+//         return "Namespaces got it";
+//     });
+// });
 
 // Sub-Domain Routing
-Route::domain('{account}.myapp.com')->group(function () {
-    Route::get('user/{id}', function ($account, $id) {
-        return 'Sub-Domain Routing';
-    });
-});
+// Route::domain('{account}.myapp.com')->group(function () {
+//     Route::get('user/{id}', function ($account, $id) {
+//         return 'Sub-Domain Routing';
+//     });
+// });
 
 // Route Prefixes
-Route::prefix('admin')->group(function () {
-    Route::get('users', function () {
-        return 'Route Prefixes';
-    });
-    Route::get('name', function () {
-        return 'Route Prefixes';
-    });
+// Route::prefix('admin')->group(function () {
+//     Route::get('users', function () {
+//         return 'Route Prefixes';
+//     });
+//     Route::get('name', function () {
+//         return 'Route Prefixes';
+//     });
+// });
+
+
+
+
+/* Route Model Binding */
+
+ // Implicit Binding : Automatically fetch User instance for given id
+Route::get('api/users/{user}', function (App\User $user) {
+    return $user->email;
 });
 
+// Explicit Binding : define your explicit model bindings in the boot method of the 
+// RouteServiceProvider class:
+// public function boot()
+// {
+//     parent::boot();
+//     Route::model('user', App\User::class);
+// }
+Route::get('profile/{user}', function (App\User $user) {
+    // Same as above use in case of  Complicare cases only
+});
 
-
-
-
-
+// Customizing The Key Name
+// If you would like model binding to use a database column other than id when 
+// retrieving a given model class, you may override the getRouteKeyName method
+// on the Eloquent model:
+/**
+ * Get the route key for the model.
+ *
+ * return string
+ *
+ * public function getRouteKeyName()
+ * {
+ *   return 'slug';
+ * }
+ **/
 
 
 
